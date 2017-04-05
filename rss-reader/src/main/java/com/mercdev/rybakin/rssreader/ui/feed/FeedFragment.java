@@ -8,7 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import com.mercdev.rybakin.rssreader.R;
+import com.mercdev.rybakin.rssreader.repo.entities.FeedItem;
+import com.mercdev.rybakin.rssreader.state.RSSManager;
+import com.mercdev.rybakin.rssreader.tasks.feed.FeedLoadTaskListener;
+import com.octo.android.robospice.persistence.exception.SpiceException;
 
 public class FeedFragment extends Fragment {
 	public static final String TAG = "FeedFragment";
@@ -29,5 +35,18 @@ public class FeedFragment extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 		feedAdapter = new FeedAdapter();
 		feedList.setAdapter(feedAdapter);
+		RSSManager.getInstance().refreshFeed(getString(R.string.rss_feed_url), new FeedLoadTaskListener() {
+			@Override
+			public void onRequestFailure(SpiceException spiceException) {
+				super.onRequestFailure(spiceException);
+				// TODO show error message
+			}
+
+			@Override
+			public void onRequestSuccess(List<FeedItem> feedItems) {
+				super.onRequestSuccess(feedItems);
+				// TODO show list
+			}
+		});
 	}
 }

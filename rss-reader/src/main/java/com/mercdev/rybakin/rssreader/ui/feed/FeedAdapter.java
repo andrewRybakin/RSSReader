@@ -12,8 +12,8 @@ import java.util.Objects;
 
 import com.mercdev.rybakin.rssreader.repo.entities.FeedItem;
 
-public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
-	private final List<FeedItem> news = new ArrayList<>();
+class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
+	private final List<FeedItem> feedItems = new ArrayList<>();
 
 	@Override
 	public FeedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -22,8 +22,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 
 	@Override
 	public void onBindViewHolder(FeedViewHolder holder, int position) {
-		FeedItem item = news.get(position);
-		holder.bind(item.getTitle(), item.getLink());
+		FeedItem item = feedItems.get(position);
+		holder.bind(item.getTitle(), item.getUrl());
 	}
 
 	@Override
@@ -31,10 +31,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder
 		return 0;
 	}
 
-	public void setNews(List<FeedItem> news) {
-		DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffCallback(this.news, news));
-		this.news.clear();
-		this.news.addAll(news);
+	void setFeedItems(List<FeedItem> feedItems) {
+		DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffCallback(this.feedItems, feedItems));
+		this.feedItems.clear();
+		this.feedItems.addAll(feedItems);
 		result.dispatchUpdatesTo(this);
 	}
 

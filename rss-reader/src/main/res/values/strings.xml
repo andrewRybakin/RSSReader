@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">RSSReader</string>
+	<string name="app_name">RSSReader</string>
+
+	<string name="rss_feed_url" translatable="false">https://habrahabr.ru/rss/interesting/</string>
 </resources>
