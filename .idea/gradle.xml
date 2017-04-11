@@ -8,7 +8,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/rss-reader" />
+            <option value="$PROJECT_DIR$/rss-app" />
+            <option value="$PROJECT_DIR$/rss-engine" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

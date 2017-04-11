@@ -25,5 +25,4 @@ public class TaskManager extends SpiceManager {
 		}
 		return instance;
 	}
-
 }

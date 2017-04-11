@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RSSReader.iml" filepath="$PROJECT_DIR$/RSSReader.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rss-reader/rss-reader.iml" filepath="$PROJECT_DIR$/rss-reader/rss-reader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rss-app/rss-app.iml" filepath="$PROJECT_DIR$/rss-app/rss-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rss-engine/rss-engine.iml" filepath="$PROJECT_DIR$/rss-engine/rss-engine.iml" />
     </modules>
   </component>
 </project>

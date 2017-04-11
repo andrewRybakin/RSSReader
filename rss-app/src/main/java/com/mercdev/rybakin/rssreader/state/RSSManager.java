@@ -13,6 +13,8 @@ public class RSSManager {
 
 	public List<FeedItem> refreshFeed(String url, FeedLoadTaskListener listener) {
 		// TODO Execute task
+		// TODO Save to database
+		// TODO return
 		return null;
 	}
 

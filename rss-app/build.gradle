@@ -32,4 +32,5 @@ dependencies {
 	compile 'com.octo.android.robospice:robospice:1.4.14'
 
 	testCompile 'junit:junit:4.12'
+	compile project(path: ':rss-engine')
 }
