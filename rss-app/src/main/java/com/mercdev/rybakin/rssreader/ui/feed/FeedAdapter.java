@@ -10,10 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.mercdev.rybakin.rssreader.repo.entities.FeedItem;
-
-class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
-	private final List<FeedItem> feedItems = new ArrayList<>();
+class FeedAdapter<T> extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
+	private final List<T> feedItems = new ArrayList<>();
 
 	@Override
 	public FeedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -22,8 +20,8 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
 
 	@Override
 	public void onBindViewHolder(FeedViewHolder holder, int position) {
-		FeedItem item = feedItems.get(position);
-		holder.bind(item.getTitle(), item.getUrl());
+		T item = feedItems.get(position);
+		/*holder.bind(item.getTitle(), item.getUrl());*/
 	}
 
 	@Override
@@ -31,8 +29,8 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
 		return 0;
 	}
 
-	void setFeedItems(List<FeedItem> feedItems) {
-		DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffCallback(this.feedItems, feedItems));
+	void setFeedItems(List<T> feedItems) {
+		DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffCallback<>(this.feedItems, feedItems));
 		this.feedItems.clear();
 		this.feedItems.addAll(feedItems);
 		result.dispatchUpdatesTo(this);
@@ -57,11 +55,11 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
 		}
 	}
 
-	private static class DiffCallback extends DiffUtil.Callback {
-		private final List<FeedItem> oldList;
-		private final List<FeedItem> newList;
+	private static class DiffCallback<T> extends DiffUtil.Callback {
+		private final List<T> oldList;
+		private final List<T> newList;
 
-		DiffCallback(List<FeedItem> oldList, List<FeedItem> newList) {
+		DiffCallback(List<T> oldList, List<T> newList) {
 			this.oldList = oldList;
 			this.newList = newList;
 		}

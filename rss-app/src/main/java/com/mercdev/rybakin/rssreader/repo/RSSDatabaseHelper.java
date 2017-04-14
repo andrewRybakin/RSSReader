@@ -2,9 +2,11 @@ package com.mercdev.rybakin.rssreader.repo;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
-class RSSDatabaseHelper extends SQLiteOpenHelper {
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.support.ConnectionSource;
+
+class RSSDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "RSSReader.db";
 
@@ -13,15 +15,12 @@ class RSSDatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	@Override
-	public void onCreate(SQLiteDatabase database) {
-		database.execSQL(RSSContract.FeedItem.SQL_CREATE_QUERY);
-		database.execSQL(RSSContract.ArticleItem.SQL_CREATE_QUERY);
+	public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
+
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-		database.execSQL(RSSContract.FeedItem.SQL_DROP_QUERY);
-		database.execSQL(RSSContract.ArticleItem.SQL_DROP_QUERY);
-		onCreate(database);
+	public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
+
 	}
 }

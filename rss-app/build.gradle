@@ -30,7 +30,7 @@ dependencies {
 	compile 'com.android.support:appcompat-v7:25.3.1'
 	compile 'com.android.support:recyclerview-v7:25.3.1'
 	compile 'com.octo.android.robospice:robospice:1.4.14'
-
 	testCompile 'junit:junit:4.12'
 	compile project(path: ':rss-engine')
+	compile 'com.j256.ormlite:ormlite-android:5.0'
 }
