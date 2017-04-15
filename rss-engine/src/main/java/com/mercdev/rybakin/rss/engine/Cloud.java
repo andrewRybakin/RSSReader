@@ -1,5 +1,6 @@
 package com.mercdev.rybakin.rss.engine;
 
+@SuppressWarnings("unused")
 public class Cloud {
 	private final String domain;
 	private final String port;
@@ -7,7 +8,7 @@ public class Cloud {
 	private final String registerProcedure;
 	private final String protocol;
 
-	public Cloud(String domain, String port, String path, String registerProcedure, String protocol) {
+	Cloud(String domain, String port, String path, String registerProcedure, String protocol) {
 		this.domain = domain;
 		this.port = port;
 		this.path = path;

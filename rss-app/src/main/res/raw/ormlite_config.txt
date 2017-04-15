@@ -1,0 +1,89 @@
+#
+# generated on 2017/04/15 11:35:55
+#
+# --table-start--
+dataClass=com.mercdev.rybakin.rssreader.repo.entities.Channel
+tableName=channel
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=title
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=link
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=description
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=language
+# --field-end--
+# --field-start--
+fieldName=copyright
+# --field-end--
+# --field-start--
+fieldName=pubDate
+# --field-end--
+# --field-start--
+fieldName=lastBuildDate
+# --field-end--
+# --field-start--
+fieldName=ttl
+# --field-end--
+# --field-start--
+fieldName=imageUrl
+# --field-end--
+# --field-start--
+fieldName=imageTitle
+# --field-end--
+# --field-start--
+fieldName=imageLink
+# --field-end--
+# --field-start--
+fieldName=rating
+# --field-end--
+# --field-start--
+fieldName=items
+foreignCollection=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.mercdev.rybakin.rssreader.repo.entities.ChannelItem
+tableName=channel-items
+# --table-fields-start--
+# --field-start--
+fieldName=channel
+columnName=channel_id
+foreign=true
+foreignAutoRefresh=true
+maxForeignAutoRefreshLevel=2
+# --field-end--
+# --field-start--
+fieldName=title
+# --field-end--
+# --field-start--
+fieldName=description
+# --field-end--
+# --field-start--
+fieldName=author
+# --field-end--
+# --field-start--
+fieldName=comments
+# --field-end--
+# --field-start--
+fieldName=guid
+# --field-end--
+# --field-start--
+fieldName=pubDate
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

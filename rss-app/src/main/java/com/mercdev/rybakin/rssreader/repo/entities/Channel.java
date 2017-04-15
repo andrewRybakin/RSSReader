@@ -1,18 +1,23 @@
 package com.mercdev.rybakin.rssreader.repo.entities;
 
+import java.util.Objects;
+
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @SuppressWarnings("unused")
 @DatabaseTable(tableName = "channel")
 public class Channel {
+	public static final String LINK_COLUMN_NAME = "link";
 
 	@DatabaseField(generatedId = true)
 	private int id;
 
 	@DatabaseField(canBeNull = false)
 	private String title;
-	@DatabaseField(canBeNull = false)
+	@DatabaseField(canBeNull = false, unique = true, columnName = LINK_COLUMN_NAME)
 	private String link;
 	@DatabaseField(canBeNull = false)
 	private String description;
@@ -35,6 +40,9 @@ public class Channel {
 	private String imageLink;
 	@DatabaseField
 	private String rating;
+
+	@ForeignCollectionField
+	private ForeignCollection<ChannelItem> items;
 
 	public Channel() {
 	}
@@ -117,5 +125,63 @@ public class Channel {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	public String getImageTitle() {
+		return imageTitle;
+	}
+
+	public void setImageTitle(String imageTitle) {
+		this.imageTitle = imageTitle;
+	}
+
+	public String getImageLink() {
+		return imageLink;
+	}
+
+	public void setImageLink(String imageLink) {
+		this.imageLink = imageLink;
+	}
+
+	public String getRating() {
+		return rating;
+	}
+
+	public void setRating(String rating) {
+		this.rating = rating;
+	}
+
+	public ForeignCollection<ChannelItem> getItems() {
+		return items;
+	}
+
+	public void setItems(ForeignCollection<ChannelItem> items) {
+		this.items = items;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Channel channel = (Channel) o;
+		return id == channel.id &&
+				pubDate == channel.pubDate &&
+				lastBuildDate == channel.lastBuildDate &&
+				ttl == channel.ttl &&
+				Objects.equals(title, channel.title) &&
+				Objects.equals(link, channel.link) &&
+				Objects.equals(description, channel.description) &&
+				Objects.equals(language, channel.language) &&
+				Objects.equals(copyright, channel.copyright) &&
+				Objects.equals(imageUrl, channel.imageUrl) &&
+				Objects.equals(imageTitle, channel.imageTitle) &&
+				Objects.equals(imageLink, channel.imageLink) &&
+				Objects.equals(rating, channel.rating) &&
+				Objects.equals(items, channel.items);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, title, link, description, language, copyright, pubDate, lastBuildDate, ttl, imageUrl, imageTitle, imageLink, rating, items);
 	}
 }

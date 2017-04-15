@@ -2,6 +2,7 @@ package com.mercdev.rybakin.rss.engine;
 
 import java.net.URI;
 
+@SuppressWarnings("unused")
 public class Enclosure {
 	private final URI url;
 	private final long length;

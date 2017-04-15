@@ -1,5 +1,7 @@
 package com.mercdev.rybakin.rssreader.repo.entities;
 
+import java.util.Objects;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -80,5 +82,24 @@ public class ChannelItem {
 
 	public void setPubDate(long pubDate) {
 		this.pubDate = pubDate;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		ChannelItem that = (ChannelItem) o;
+		return pubDate == that.pubDate &&
+				Objects.equals(channel, that.channel) &&
+				Objects.equals(title, that.title) &&
+				Objects.equals(description, that.description) &&
+				Objects.equals(author, that.author) &&
+				Objects.equals(comments, that.comments) &&
+				Objects.equals(guid, that.guid);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(channel, title, description, author, comments, guid, pubDate);
 	}
 }

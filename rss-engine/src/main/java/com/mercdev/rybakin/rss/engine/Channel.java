@@ -1,6 +1,5 @@
 package com.mercdev.rybakin.rss.engine;
 
-import java.net.URI;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +17,7 @@ import java.util.List;
 public class Channel {
 	/* Required fields */
 	private final String title;
-	private final URI link;
+	private final String link;
 	private final String description;
 
 	/* Optional fields */
@@ -34,7 +33,7 @@ public class Channel {
 	private Date pubDate;
 	private Date lastBuildDate;
 	private String generator;
-	private URI docs;
+	private String docs;
 	private int ttl;
 	private Image image;
 	private Cloud cloud;
@@ -43,7 +42,7 @@ public class Channel {
 
 	Channel(String title, String link, String description) {
 		this.title = title;
-		this.link = URI.create(link);
+		this.link = link;
 		this.description = description;
 	}
 
@@ -51,7 +50,7 @@ public class Channel {
 		return title;
 	}
 
-	public URI getLink() {
+	public String getLink() {
 		return link;
 	}
 
@@ -131,12 +130,12 @@ public class Channel {
 		this.generator = generator;
 	}
 
-	public URI getDocs() {
+	public String getDocs() {
 		return docs;
 	}
 
 	void setDocs(String docs) {
-		this.docs = URI.create(docs);
+		this.docs = docs;
 	}
 
 	public int getTTL() {

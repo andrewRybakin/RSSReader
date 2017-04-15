@@ -1,20 +1,28 @@
 package com.mercdev.rybakin.rssreader.state;
 
-import java.util.List;
-
-import com.mercdev.rybakin.rssreader.tasks.feed.FeedLoadTaskListener;
+import com.mercdev.rybakin.rssreader.state.model.Channel;
+import com.mercdev.rybakin.rssreader.tasks.TaskManager;
+import com.mercdev.rybakin.rssreader.tasks.feed.ChannelLoadTask;
+import com.mercdev.rybakin.rssreader.tasks.feed.TaskListener;
 
 public class RSSManager {
+	public static final String CHANNEL_UPDATE_ACTION = "ChannelUpdateAction";
 	private static RSSManager instance;
 
 	private RSSManager() {
 	}
 
-	public List<Object> refreshFeed(String url, FeedLoadTaskListener listener) {
-		// TODO Execute task
+	public void refreshFeed(String url) {
+		ChannelLoadTask task = new ChannelLoadTask(url);
+		TaskManager.getInstance().execute(task, new TaskListener<Channel>() {
+			@Override
+			public void onRequestSuccess(Channel feedItems) {
+				super.onRequestSuccess(feedItems);
+
+			}
+		});
 		// TODO Save to database
-		// TODO return
-		return null;
+		// TODO Send broadcast
 	}
 
 	public static RSSManager getInstance() {

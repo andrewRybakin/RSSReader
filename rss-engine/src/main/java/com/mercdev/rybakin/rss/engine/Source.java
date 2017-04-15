@@ -2,6 +2,7 @@ package com.mercdev.rybakin.rss.engine;
 
 import java.net.URI;
 
+@SuppressWarnings("unused")
 public class Source {
 	private final URI url;
 	private final String name;

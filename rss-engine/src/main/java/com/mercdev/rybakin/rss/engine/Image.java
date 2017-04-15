@@ -1,9 +1,8 @@
 package com.mercdev.rybakin.rss.engine;
 
-import java.net.URI;
-
+@SuppressWarnings("unused")
 public class Image {
-	private final URI url;
+	private final String url;
 	private final String title;
 	private final String link;
 
@@ -11,19 +10,13 @@ public class Image {
 	private int height;
 	private String description;
 
-	public Image(String url, String title, String link) {
-		this.url = URI.create(url);
-		this.title = title;
-		this.link = link;
-	}
-
-	public Image(URI url, String title, String link) {
+	Image(String url, String title, String link) {
 		this.url = url;
 		this.title = title;
 		this.link = link;
 	}
 
-	public URI getUrl() {
+	public String getUrl() {
 		return url;
 	}
 

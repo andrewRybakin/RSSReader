@@ -2,6 +2,7 @@ package com.mercdev.rybakin.rss.engine;
 
 import java.net.URI;
 
+@SuppressWarnings("unused")
 public class TextInput {
 	private final String title;
 	private final String description;
@@ -13,13 +14,6 @@ public class TextInput {
 		this.description = description;
 		this.name = name;
 		this.link = URI.create(link);
-	}
-
-	public TextInput(String title, String description, String name, URI link) {
-		this.title = title;
-		this.description = description;
-		this.name = name;
-		this.link = link;
 	}
 
 	public String getTitle() {

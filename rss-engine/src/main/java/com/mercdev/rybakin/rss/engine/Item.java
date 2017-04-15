@@ -1,6 +1,5 @@
 package com.mercdev.rybakin.rss.engine;
 
-import java.net.URI;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +13,7 @@ public class Item {
 	private final List<String> category = new ArrayList<>();
 
 	private String author;
-	private URI comments;
+	private String comments;
 	private Enclosure enclosure;
 	private String guid;
 	private Date pubDate;
@@ -53,12 +52,12 @@ public class Item {
 		this.category.add(category);
 	}
 
-	public URI getComments() {
+	public String getComments() {
 		return comments;
 	}
 
 	void setComments(String comments) {
-		this.comments = URI.create(comments);
+		this.comments = comments;
 	}
 
 	public Enclosure getEnclosure() {
