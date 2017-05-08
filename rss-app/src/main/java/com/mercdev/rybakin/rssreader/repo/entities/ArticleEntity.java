@@ -4,12 +4,20 @@ import java.util.Objects;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.mercdev.rybakin.rss.engine.Item;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "WeakerAccess" })
 @DatabaseTable(tableName = "channel-items")
-public class ChannelItem {
-	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "channel_id")
-	private Channel channel;
+public class ArticleEntity {
+	public static final String ID_COLUMN_NAME = "id";
+	public static final String CHANNEL_ID_COLUMN_NAME = "channel_id";
+	public static final String GUID_COLUMN_NAME = "guid";
+
+	@DatabaseField(generatedId = true, columnName = ID_COLUMN_NAME)
+	private int id;
+
+	@DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = CHANNEL_ID_COLUMN_NAME)
+	private ChannelEntity channel;
 
 	@DatabaseField
 	private String title;
@@ -20,19 +28,27 @@ public class ChannelItem {
 	private String author;
 	@DatabaseField
 	private String comments;
-	@DatabaseField
+	@DatabaseField(columnName = GUID_COLUMN_NAME)
 	private String guid;
 	@DatabaseField
 	private long pubDate;
 
-	public ChannelItem() {
+	public ArticleEntity() {
 	}
 
-	public Channel getChannel() {
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public ChannelEntity getChannel() {
 		return channel;
 	}
 
-	public void setChannel(Channel channel) {
+	public void setChannel(ChannelEntity channel) {
 		this.channel = channel;
 	}
 
@@ -88,7 +104,7 @@ public class ChannelItem {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		ChannelItem that = (ChannelItem) o;
+		ArticleEntity that = (ArticleEntity) o;
 		return pubDate == that.pubDate &&
 				Objects.equals(channel, that.channel) &&
 				Objects.equals(title, that.title) &&
@@ -101,5 +117,18 @@ public class ChannelItem {
 	@Override
 	public int hashCode() {
 		return Objects.hash(channel, title, description, author, comments, guid, pubDate);
+	}
+
+	public static ArticleEntity build(Item model) {
+		ArticleEntity entity = new ArticleEntity();
+		entity.setAuthor(model.getAuthor());
+		entity.setTitle(model.getTitle());
+		if (model.getPubDate() != null) {
+			entity.setPubDate(model.getPubDate().getTime());
+		}
+		entity.setComments(model.getComments());
+		entity.setDescription(model.getDescription());
+		entity.setGuid(model.getGuid());
+		return entity;
 	}
 }

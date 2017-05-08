@@ -2,7 +2,6 @@ package com.mercdev.rybakin.rssreader.ui.feed;
 
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -10,56 +9,59 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-class FeedAdapter<T> extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
-	private final List<T> feedItems = new ArrayList<>();
+import com.mercdev.rybakin.rssreader.state.model.ArticleInfo;
+
+class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
+	private final List<ArticleInfo> feedItems = new ArrayList<>();
+	private final OnFeedItemClickListener listener;
+
+	FeedAdapter(OnFeedItemClickListener listener) {
+		this.listener = listener;
+	}
 
 	@Override
 	public FeedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		return new FeedViewHolder(new FeedNewsView(parent.getContext()));
+		return new FeedViewHolder(new FeedNewsView(parent.getContext()), listener);
 	}
 
 	@Override
 	public void onBindViewHolder(FeedViewHolder holder, int position) {
-		T item = feedItems.get(position);
-		/*holder.bind(item.getTitle(), item.getUrl());*/
+		ArticleInfo item = feedItems.get(position);
+		holder.bind(item);
 	}
 
 	@Override
 	public int getItemCount() {
-		return 0;
+		return feedItems.size();
 	}
 
-	void setFeedItems(List<T> feedItems) {
-		DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffCallback<>(this.feedItems, feedItems));
+	void setFeedItems(List<ArticleInfo> feedItems) {
+		DiffUtil.DiffResult result = DiffUtil.calculateDiff(new FeedDiffCallback(this.feedItems, feedItems));
 		this.feedItems.clear();
 		this.feedItems.addAll(feedItems);
 		result.dispatchUpdatesTo(this);
 	}
 
 	static class FeedViewHolder extends RecyclerView.ViewHolder {
-		private static final String TAG = "FeedViewHolder";
+		private final OnFeedItemClickListener listener;
 
-		FeedViewHolder(View itemView) {
+		FeedViewHolder(View itemView, OnFeedItemClickListener listener) {
 			super(itemView);
+			this.listener = listener;
 		}
 
-		void bind(String title, final String link) {
+		void bind(ArticleInfo info) {
 			FeedNewsView view = ((FeedNewsView) itemView);
-			view.setTitle(title);
-			view.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					Log.d(TAG, String.format("onClick: open link: %s", link));
-				}
-			});
+			view.setTitle(info.getTitle());
+			view.setOnClickListener(view1 -> listener.onFeedItemClick(info));
 		}
 	}
 
-	private static class DiffCallback<T> extends DiffUtil.Callback {
-		private final List<T> oldList;
-		private final List<T> newList;
+	private static class FeedDiffCallback extends DiffUtil.Callback {
+		private final List<ArticleInfo> oldList;
+		private final List<ArticleInfo> newList;
 
-		DiffCallback(List<T> oldList, List<T> newList) {
+		FeedDiffCallback(List<ArticleInfo> oldList, List<ArticleInfo> newList) {
 			this.oldList = oldList;
 			this.newList = newList;
 		}
@@ -83,5 +85,9 @@ class FeedAdapter<T> extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
 		public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
 			return Objects.equals(oldList.get(oldItemPosition), newList.get(newItemPosition));
 		}
+	}
+
+	interface OnFeedItemClickListener {
+		void onFeedItemClick(ArticleInfo info);
 	}
 }

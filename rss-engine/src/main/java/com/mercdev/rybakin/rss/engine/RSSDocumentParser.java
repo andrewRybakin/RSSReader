@@ -28,6 +28,8 @@ public final class RSSDocumentParser {
 		Document document = builder.parse(streamToParse);
 		document.normalizeDocument();
 
+		System.out.println("Strat parsing...");
+
 		// Is it rss?
 		NodeList mainTag = document.getElementsByTagName(RSS_ROOT);
 		if (mainTag.getLength() != 0 && !Objects.equals(mainTag.item(0).getAttributes().getNamedItem(RSS_VERSION_ATTR).getNodeValue(), RSS_SUPPORTED_VERSION)) {

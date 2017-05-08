@@ -1,16 +1,23 @@
 #
-# generated on 2017/04/15 11:35:55
+# generated on 2017/05/08 01:33:54
 #
 # --table-start--
-dataClass=com.mercdev.rybakin.rssreader.repo.entities.Channel
+dataClass=com.mercdev.rybakin.rssreader.repo.entities.ChannelEntity
 tableName=channel
 # --table-fields-start--
 # --field-start--
 fieldName=id
+columnName=id
 generatedId=true
 # --field-end--
 # --field-start--
+fieldName=url
+columnName=url
+unique=true
+# --field-end--
+# --field-start--
 fieldName=title
+columnName=title
 canBeNull=false
 # --field-end--
 # --field-start--
@@ -38,6 +45,7 @@ fieldName=ttl
 # --field-end--
 # --field-start--
 fieldName=imageUrl
+columnName=image_url
 # --field-end--
 # --field-start--
 fieldName=imageTitle
@@ -56,9 +64,14 @@ foreignCollection=true
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.mercdev.rybakin.rssreader.repo.entities.ChannelItem
+dataClass=com.mercdev.rybakin.rssreader.repo.entities.ArticleEntity
 tableName=channel-items
 # --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=id
+generatedId=true
+# --field-end--
 # --field-start--
 fieldName=channel
 columnName=channel_id

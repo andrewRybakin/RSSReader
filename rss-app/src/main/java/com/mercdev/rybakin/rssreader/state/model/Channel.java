@@ -1,13 +1,15 @@
 package com.mercdev.rybakin.rssreader.state.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
+import com.mercdev.rybakin.rssreader.repo.entities.ChannelEntity;
+
+@SuppressWarnings({ "WeakerAccess", "unused" })
 public class Channel {
 	private final String title;
 	private final String link;
 	private final String description;
+	private final String url;
 
 	private String language;
 	private String copyright;
@@ -19,9 +21,8 @@ public class Channel {
 	private String imageLink;
 	private String rating;
 
-	private final List<Article> articles = new ArrayList<>();
-
-	public Channel(String title, String link, String description) {
+	public Channel(String url, String title, String link, String description) {
+		this.url = url;
 		this.title = title;
 		this.link = link;
 		this.description = description;
@@ -37,6 +38,10 @@ public class Channel {
 
 	public String getDescription() {
 		return description;
+	}
+
+	public String getUrl() {
+		return url;
 	}
 
 	public String getLanguage() {
@@ -111,11 +116,20 @@ public class Channel {
 		this.rating = rating;
 	}
 
-	public List<Article> getArticles() {
-		return articles;
-	}
-
-	public void addArticle(Article article) {
-		this.articles.add(article);
+	public static Channel createFromEntity(ChannelEntity entity) {
+		Channel result = null;
+		if (entity != null) {
+			result = new Channel(entity.getUrl(), entity.getTitle(), entity.getLink(), entity.getDescription());
+			result.setPubDate(new Date(entity.getPubDate()));
+			result.setTtl(entity.getTtl());
+			result.setRating(entity.getRating());
+			result.setCopyright(entity.getCopyright());
+			result.setImageLink(entity.getImageLink());
+			result.setImageTitle(entity.getImageTitle());
+			result.setImageUrl(entity.getImageUrl());
+			result.setLanguage(entity.getLanguage());
+			result.setLastBuildDate(new Date(entity.getLastBuildDate()));
+		}
+		return result;
 	}
 }

@@ -5,13 +5,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
-import com.mercdev.rybakin.rssreader.repo.entities.Channel;
-import com.mercdev.rybakin.rssreader.repo.entities.ChannelItem;
+import com.mercdev.rybakin.rssreader.repo.entities.ChannelEntity;
+import com.mercdev.rybakin.rssreader.repo.entities.ArticleEntity;
 
 public class DatabaseConfigUtil extends OrmLiteConfigUtil {
 	private static final Class<?>[] entities = new Class[] {
-			Channel.class,
-			ChannelItem.class
+			ChannelEntity.class,
+			ArticleEntity.class
 	};
 
 	public static void main(String[] args) throws IOException, SQLException {

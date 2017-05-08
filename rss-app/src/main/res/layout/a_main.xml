@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<android.support.v4.widget.DrawerLayout
+	android:id="@+id/drawer_layout"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"/>
+	android:layout_height="match_parent">
+
+	<android.support.percent.PercentRelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<android.widget.Toolbar
+			android:id="@+id/toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content" />
+
+		<FrameLayout
+			android:id="@+id/master_fragment_host"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_below="@+id/toolbar" />
+
+	</android.support.percent.PercentRelativeLayout>
+
+	<com.mercdev.rybakin.rssreader.ui.channels.ChannelsListView
+		android:id="@+id/channels_list"
+		android:layout_width="@dimen/left_menu_width"
+		android:layout_height="match_parent"
+		android:background="@color/white"
+		android:layout_gravity="start" />
+
+</android.support.v4.widget.DrawerLayout>

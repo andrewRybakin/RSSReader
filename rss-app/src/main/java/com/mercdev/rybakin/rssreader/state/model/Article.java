@@ -2,6 +2,8 @@ package com.mercdev.rybakin.rssreader.state.model;
 
 import java.util.Date;
 
+import com.mercdev.rybakin.rssreader.repo.entities.ArticleEntity;
+
 public class Article {
 	private final String title;
 	private final String description;
@@ -54,5 +56,14 @@ public class Article {
 
 	public void setPubDate(Date pubDate) {
 		this.pubDate = pubDate;
+	}
+
+	public static Article bulidFromEntity(ArticleEntity entity) {
+		Article result = new Article(entity.getTitle(), entity.getDescription());
+		result.setPubDate(new Date(entity.getPubDate()));
+		result.setAuthor(entity.getAuthor());
+		result.setComments(entity.getComments());
+		result.setGuid(entity.getGuid());
+		return result;
 	}
 }

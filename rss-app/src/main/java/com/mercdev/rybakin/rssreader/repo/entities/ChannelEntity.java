@@ -7,17 +7,23 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({ "unused", "WeakerAccess" })
 @DatabaseTable(tableName = "channel")
-public class Channel {
-	public static final String LINK_COLUMN_NAME = "link";
+public class ChannelEntity {
+	public static final String ID_COLUMN_NAME = "id";
+	public static final String TITLE_COLUMN_NAME = "title";
+	public static final String URL_COLUMN_NAME = "url";
+	public static final String IMAGE_URL_COLUMN_NAME = "image_url";
 
-	@DatabaseField(generatedId = true)
+	@DatabaseField(generatedId = true, columnName = ID_COLUMN_NAME)
 	private int id;
 
-	@DatabaseField(canBeNull = false)
+	@DatabaseField(unique = true, columnName = URL_COLUMN_NAME)
+	private String url;
+
+	@DatabaseField(canBeNull = false, columnName = TITLE_COLUMN_NAME)
 	private String title;
-	@DatabaseField(canBeNull = false, unique = true, columnName = LINK_COLUMN_NAME)
+	@DatabaseField(canBeNull = false)
 	private String link;
 	@DatabaseField(canBeNull = false)
 	private String description;
@@ -32,7 +38,7 @@ public class Channel {
 	private long lastBuildDate;
 	@DatabaseField
 	private int ttl;
-	@DatabaseField
+	@DatabaseField(columnName = IMAGE_URL_COLUMN_NAME)
 	private String imageUrl;
 	@DatabaseField
 	private String imageTitle;
@@ -42,9 +48,9 @@ public class Channel {
 	private String rating;
 
 	@ForeignCollectionField
-	private ForeignCollection<ChannelItem> items;
+	private ForeignCollection<ArticleEntity> items;
 
-	public Channel() {
+	public ChannelEntity() {
 	}
 
 	public int getId() {
@@ -53,6 +59,14 @@ public class Channel {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public String getTitle() {
@@ -151,11 +165,11 @@ public class Channel {
 		this.rating = rating;
 	}
 
-	public ForeignCollection<ChannelItem> getItems() {
+	public ForeignCollection<ArticleEntity> getItems() {
 		return items;
 	}
 
-	public void setItems(ForeignCollection<ChannelItem> items) {
+	public void setItems(ForeignCollection<ArticleEntity> items) {
 		this.items = items;
 	}
 
@@ -163,7 +177,7 @@ public class Channel {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		Channel channel = (Channel) o;
+		ChannelEntity channel = (ChannelEntity) o;
 		return id == channel.id &&
 				pubDate == channel.pubDate &&
 				lastBuildDate == channel.lastBuildDate &&
@@ -183,5 +197,27 @@ public class Channel {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, title, link, description, language, copyright, pubDate, lastBuildDate, ttl, imageUrl, imageTitle, imageLink, rating, items);
+	}
+
+	public static ChannelEntity build(com.mercdev.rybakin.rss.engine.Channel model, String url) {
+		ChannelEntity entity = new ChannelEntity();
+		entity.setUrl(url);
+		entity.setTitle(model.getTitle());
+		entity.setDescription(model.getDescription());
+		entity.setLink(model.getLink());
+		entity.setCopyright(model.getCopyright());
+		entity.setLanguage(model.getLanguage());
+		if (model.getLastBuildDate() != null) {
+			entity.setLastBuildDate(model.getLastBuildDate().getTime());
+		}
+		if (model.getPubDate() != null) {
+			entity.setPubDate(model.getPubDate().getTime());
+		}
+		entity.setRating(model.getRating());
+		entity.setTtl(model.getTTL());
+		entity.setImageLink(model.getImage().getLink());
+		entity.setImageTitle(model.getImage().getTitle());
+		entity.setImageUrl(model.getImage().getUrl());
+		return entity;
 	}
 }
