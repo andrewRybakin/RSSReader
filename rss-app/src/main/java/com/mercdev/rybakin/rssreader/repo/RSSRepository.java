@@ -28,8 +28,8 @@ public class RSSRepository {
 			ChannelEntity existingChannel = databaseHelper.getChannelsDao().queryBuilder().where().eq(ChannelEntity.URL_COLUMN_NAME, url).queryForFirst();
 			if (existingChannel != null) {
 				data.setId(existingChannel.getId());
-				databaseHelper.getChannelsDao().update(data);
 				databaseHelper.getArticlesDao().deleteBuilder().where().eq(ArticleEntity.CHANNEL_ID_COLUMN_NAME, data.getId());
+				databaseHelper.getChannelsDao().update(data);
 			} else {
 				databaseHelper.getChannelsDao().create(data);
 				data.setId(databaseHelper.getChannelsDao().extractId(data));
@@ -75,11 +75,11 @@ public class RSSRepository {
 	}
 
 	public List<ChannelInfo> getChannelList() {
-		List<ChannelInfo> result = null;
+		List<ChannelInfo> result = new ArrayList<>();
 		try {
 			GenericRawResults<String[]> queryResult = databaseHelper.getChannelsDao().queryBuilder()
-					.selectColumns(ChannelEntity.TITLE_COLUMN_NAME, ChannelEntity.URL_COLUMN_NAME, ChannelEntity.IMAGE_URL_COLUMN_NAME).queryRaw();
-			result = new ArrayList<>();
+					.selectColumns(ChannelEntity.TITLE_COLUMN_NAME, ChannelEntity.URL_COLUMN_NAME, ChannelEntity.IMAGE_URL_COLUMN_NAME)
+					.queryRaw();
 			for (String[] oneResult : queryResult) {
 				result.add(new ChannelInfo(oneResult[0], oneResult[1], oneResult[2]));
 			}

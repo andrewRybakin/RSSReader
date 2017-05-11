@@ -28,7 +28,7 @@ public class ChannelsListView extends RecyclerView {
 		setLayoutManager(new LinearLayoutManager(context));
 	}
 
-	public void setChannelSelectListener(ChannelSelectListener listener) {
+	public void setChannelSelectListener(OnChannelsListItemClicked listener) {
 		adapter.setChannelSelectionListener(listener);
 	}
 
@@ -36,7 +36,9 @@ public class ChannelsListView extends RecyclerView {
 		adapter.setList(list);
 	}
 
-	public interface ChannelSelectListener {
-		void onChannelSelected(ChannelInfo channel);
+	public interface OnChannelsListItemClicked {
+		void onChannelClick(ChannelInfo channel);
+
+		void onAddChannelClick();
 	}
 }

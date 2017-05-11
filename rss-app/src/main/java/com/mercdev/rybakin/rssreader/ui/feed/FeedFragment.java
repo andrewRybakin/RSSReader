@@ -33,38 +33,33 @@ public class FeedFragment extends Fragment {
 	};
 
 	private SwipeRefreshLayout refreshLayout;
-	private RecyclerView feedList;
 	private FeedAdapter feedAdapter;
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.f_feed, container, false);
+		return inflater.inflate(R.layout.f_feed, container, false);
+	}
+
+	@Override
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 		refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
 		refreshLayout.setOnRefreshListener(this::refreshList);
 
-		feedList = (RecyclerView) view.findViewById(R.id.feed_list);
+		RecyclerView feedList = (RecyclerView) view.findViewById(R.id.feed_list);
 
 		feedAdapter = new FeedAdapter(articleInfo -> {
 			Bundle args = new Bundle();
 			args.putInt(ArticleFragment.ARTICLE_ID_ARGUMENT, articleInfo.getId());
 			ArticleFragment fragment = new ArticleFragment();
 			fragment.setArguments(args);
-			getFragmentManager().beginTransaction()
-					.add(R.id.master_fragment_host, fragment, ArticleFragment.TAG)
-					.addToBackStack(MainActivity.BACK_STACK)
-					.commit();
+			((MainActivity) getActivity()).addDetailFragment(fragment, ArticleFragment.TAG);
 		});
+
 		feedList.setLayoutManager(new LinearLayoutManager(getActivity()));
 		feedList.setAdapter(feedAdapter);
-
-		RSSManager.getInstance().addChannel(getString(R.string.rss_feed_url));
-		return view;
-	}
-
-	@Override
-	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
+		feedAdapter.setFeedItems(RSSManager.getInstance().getSelectedChannelFeed());
 	}
 
 	@Override

@@ -16,7 +16,7 @@ import com.mercdev.rybakin.rssreader.repo.entities.ChannelEntity;
 import com.mercdev.rybakin.rssreader.repo.entities.ArticleEntity;
 
 class RSSDatabaseHelper extends OrmLiteSqliteOpenHelper {
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 	private static final String DATABASE_NAME = "RSSReader.db";
 
 	private RuntimeExceptionDao<ChannelEntity, Integer> channelsDao;

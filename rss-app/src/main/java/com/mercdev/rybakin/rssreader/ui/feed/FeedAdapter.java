@@ -51,9 +51,9 @@ class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedViewHolder> {
 		}
 
 		void bind(ArticleInfo info) {
-			FeedNewsView view = ((FeedNewsView) itemView);
-			view.setTitle(info.getTitle());
-			view.setOnClickListener(view1 -> listener.onFeedItemClick(info));
+			FeedNewsView feedView = ((FeedNewsView) itemView);
+			feedView.setTitle(info.getTitle());
+			feedView.setOnClickListener(view -> listener.onFeedItemClick(info));
 		}
 	}
 

@@ -13,7 +13,7 @@ public class Article {
 	private String guid;
 	private Date pubDate;
 
-	public Article(String title, String description) {
+	private Article(String title, String description) {
 		this.title = title;
 		this.description = description;
 	}
@@ -26,19 +26,19 @@ public class Article {
 		return description;
 	}
 
-	public String getAuthor() {
-		return author;
+	private void setAuthor(String author) {
+		this.author = author;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public String getAuthor() {
+		return author;
 	}
 
 	public String getComments() {
 		return comments;
 	}
 
-	public void setComments(String comments) {
+	private void setComments(String comments) {
 		this.comments = comments;
 	}
 
@@ -46,7 +46,7 @@ public class Article {
 		return guid;
 	}
 
-	public void setGuid(String guid) {
+	private void setGuid(String guid) {
 		this.guid = guid;
 	}
 
@@ -54,11 +54,11 @@ public class Article {
 		return pubDate;
 	}
 
-	public void setPubDate(Date pubDate) {
+	private void setPubDate(Date pubDate) {
 		this.pubDate = pubDate;
 	}
 
-	public static Article bulidFromEntity(ArticleEntity entity) {
+	public static Article buildFromEntity(ArticleEntity entity) {
 		Article result = new Article(entity.getTitle(), entity.getDescription());
 		result.setPubDate(new Date(entity.getPubDate()));
 		result.setAuthor(entity.getAuthor());

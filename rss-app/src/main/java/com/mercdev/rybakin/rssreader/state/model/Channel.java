@@ -4,7 +4,6 @@ import java.util.Date;
 
 import com.mercdev.rybakin.rssreader.repo.entities.ChannelEntity;
 
-@SuppressWarnings({ "WeakerAccess", "unused" })
 public class Channel {
 	private final String title;
 	private final String link;
@@ -21,7 +20,7 @@ public class Channel {
 	private String imageLink;
 	private String rating;
 
-	public Channel(String url, String title, String link, String description) {
+	private Channel(String url, String title, String link, String description) {
 		this.url = url;
 		this.title = title;
 		this.link = link;
@@ -48,7 +47,7 @@ public class Channel {
 		return language;
 	}
 
-	public void setLanguage(String language) {
+	private void setLanguage(String language) {
 		this.language = language;
 	}
 
@@ -56,7 +55,7 @@ public class Channel {
 		return copyright;
 	}
 
-	public void setCopyright(String copyright) {
+	private void setCopyright(String copyright) {
 		this.copyright = copyright;
 	}
 
@@ -64,7 +63,7 @@ public class Channel {
 		return pubDate;
 	}
 
-	public void setPubDate(Date pubDate) {
+	private void setPubDate(Date pubDate) {
 		this.pubDate = pubDate;
 	}
 
@@ -72,7 +71,7 @@ public class Channel {
 		return lastBuildDate;
 	}
 
-	public void setLastBuildDate(Date lastBuildDate) {
+	private void setLastBuildDate(Date lastBuildDate) {
 		this.lastBuildDate = lastBuildDate;
 	}
 
@@ -80,7 +79,7 @@ public class Channel {
 		return ttl;
 	}
 
-	public void setTtl(int ttl) {
+	private void setTtl(int ttl) {
 		this.ttl = ttl;
 	}
 
@@ -88,7 +87,7 @@ public class Channel {
 		return imageUrl;
 	}
 
-	public void setImageUrl(String imageUrl) {
+	private void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
 
@@ -96,7 +95,7 @@ public class Channel {
 		return imageTitle;
 	}
 
-	public void setImageTitle(String imageTitle) {
+	private void setImageTitle(String imageTitle) {
 		this.imageTitle = imageTitle;
 	}
 
@@ -104,7 +103,7 @@ public class Channel {
 		return imageLink;
 	}
 
-	public void setImageLink(String imageLink) {
+	private void setImageLink(String imageLink) {
 		this.imageLink = imageLink;
 	}
 
@@ -112,7 +111,7 @@ public class Channel {
 		return rating;
 	}
 
-	public void setRating(String rating) {
+	private void setRating(String rating) {
 		this.rating = rating;
 	}
 

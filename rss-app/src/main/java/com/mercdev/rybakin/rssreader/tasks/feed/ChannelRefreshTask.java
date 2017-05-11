@@ -9,7 +9,6 @@ import com.mercdev.rybakin.rssreader.repo.RSSRepository;
 import com.octo.android.robospice.request.SpiceRequest;
 
 public class ChannelRefreshTask extends SpiceRequest<String> {
-	private static final String TAG = "ChannelRefreshTask";
 	private final String targetUrl;
 
 	public ChannelRefreshTask(String url) {
@@ -27,6 +26,8 @@ public class ChannelRefreshTask extends SpiceRequest<String> {
 			InputStream inputStream = conn.getInputStream();
 			channel = RSSDocumentParser.parse(inputStream);
 			inputStream.close();
+		} else {
+			throw new Exception("Couldn't load channel!");
 		}
 		conn.disconnect();
 

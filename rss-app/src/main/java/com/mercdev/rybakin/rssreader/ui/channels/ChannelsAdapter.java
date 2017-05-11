@@ -13,24 +13,38 @@ import com.mercdev.rybakin.rssreader.R;
 import com.mercdev.rybakin.rssreader.state.model.ChannelInfo;
 import com.squareup.picasso.Picasso;
 
-class ChannelsAdapter extends RecyclerView.Adapter<ChannelsAdapter.ChannelViewHolder> {
+class ChannelsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 	private final List<ChannelInfo> channels = new ArrayList<>();
 
-	private ChannelsListView.ChannelSelectListener listener;
+	private static final int ADD_CHANNEL_ITEM = 0;
+	private static final int CHANNEL_ITEM = 1;
+
+	private ChannelsListView.OnChannelsListItemClicked listener;
 
 	@Override
-	public ChannelViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		return new ChannelViewHolder(View.inflate(parent.getContext(), R.layout.v_channel, null), listener);
+	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+		if (viewType == ADD_CHANNEL_ITEM) {
+			return new AddChannelViewHolder(View.inflate(parent.getContext(), R.layout.v_add_channel, null), listener);
+		} else {
+			return new ChannelViewHolder(View.inflate(parent.getContext(), R.layout.v_channel, null), listener);
+		}
 	}
 
 	@Override
-	public void onBindViewHolder(ChannelViewHolder holder, int position) {
-		holder.bind(channels.get(position));
+	public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+		if (position != ADD_CHANNEL_ITEM) {
+			((ChannelViewHolder) holder).bind(channels.get(position - 1));
+		}
 	}
 
 	@Override
 	public int getItemCount() {
-		return channels.size();
+		return channels.size() + 1;
+	}
+
+	@Override
+	public int getItemViewType(int position) {
+		return position == ADD_CHANNEL_ITEM ? ADD_CHANNEL_ITEM : CHANNEL_ITEM;
 	}
 
 	void setList(List<ChannelInfo> list) {
@@ -39,17 +53,24 @@ class ChannelsAdapter extends RecyclerView.Adapter<ChannelsAdapter.ChannelViewHo
 		notifyDataSetChanged();
 	}
 
-	void setChannelSelectionListener(ChannelsListView.ChannelSelectListener listener) {
+	void setChannelSelectionListener(ChannelsListView.OnChannelsListItemClicked listener) {
 		this.listener = listener;
 	}
 
-	static class ChannelViewHolder extends RecyclerView.ViewHolder {
-		private final ChannelsListView.ChannelSelectListener listener;
+	private static class AddChannelViewHolder extends RecyclerView.ViewHolder {
+		AddChannelViewHolder(View itemView, ChannelsListView.OnChannelsListItemClicked listener) {
+			super(itemView);
+			itemView.setOnClickListener(view -> listener.onAddChannelClick());
+		}
+	}
+
+	private static class ChannelViewHolder extends RecyclerView.ViewHolder {
+		private final ChannelsListView.OnChannelsListItemClicked listener;
 
 		private final TextView channelTitle;
 		private final ImageView channelImage;
 
-		ChannelViewHolder(View itemView, ChannelsListView.ChannelSelectListener listener) {
+		ChannelViewHolder(View itemView, ChannelsListView.OnChannelsListItemClicked listener) {
 			super(itemView);
 			this.listener = listener;
 			channelTitle = (TextView) itemView.findViewById(R.id.channel_name);
@@ -63,7 +84,7 @@ class ChannelsAdapter extends RecyclerView.Adapter<ChannelsAdapter.ChannelViewHo
 					.into(channelImage);
 			itemView.setOnClickListener(view -> {
 				if (listener != null) {
-					listener.onChannelSelected(channel);
+					listener.onChannelClick(channel);
 				}
 			});
 		}

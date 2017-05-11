@@ -12,6 +12,7 @@ public class ArticleEntity {
 	public static final String ID_COLUMN_NAME = "id";
 	public static final String CHANNEL_ID_COLUMN_NAME = "channel_id";
 	public static final String GUID_COLUMN_NAME = "guid";
+	public static final String PUB_DATE_COLUMN_NAME = "pub_date";
 
 	@DatabaseField(generatedId = true, columnName = ID_COLUMN_NAME)
 	private int id;
@@ -30,7 +31,7 @@ public class ArticleEntity {
 	private String comments;
 	@DatabaseField(columnName = GUID_COLUMN_NAME)
 	private String guid;
-	@DatabaseField
+	@DatabaseField(columnName = PUB_DATE_COLUMN_NAME)
 	private long pubDate;
 
 	public ArticleEntity() {

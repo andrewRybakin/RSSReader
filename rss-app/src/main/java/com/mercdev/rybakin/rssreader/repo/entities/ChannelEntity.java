@@ -47,7 +47,7 @@ public class ChannelEntity {
 	@DatabaseField
 	private String rating;
 
-	@ForeignCollectionField
+	@ForeignCollectionField(orderColumnName = ArticleEntity.PUB_DATE_COLUMN_NAME, orderAscending = false)
 	private ForeignCollection<ArticleEntity> items;
 
 	public ChannelEntity() {

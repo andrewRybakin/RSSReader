@@ -1,5 +1,10 @@
 <resources>
 	<string name="app_name">RSSReader</string>
+	<string name="add_channel_button">Add</string>
+	<string name="add_channel_dialog_title">Add new channel</string>
+	<string name="add_channel_dialog_hint">Enter new channel\'s url</string>
 
 	<string name="rss_feed_url" translatable="false">https://habrahabr.ru/rss/interesting/</string>
+	<string name="common_cancel">Cancel</string>
+	<string name="article_read_more"><![CDATA[Read more->]]></string>
 </resources>

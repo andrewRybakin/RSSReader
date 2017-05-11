@@ -1,7 +1,16 @@
 <resources>
 
 	<style name="RssReader" parent="Theme.AppCompat.Light.NoActionBar">
-
+		<item name="toolbarStyle">@style/RssReader.Toolbar</item>
+		<item name="colorPrimary">@color/teal</item>
 	</style>
 
+	<style name="RssReader.Toolbar" parent="Widget.AppCompat.Toolbar">
+		<item name="android:background">?colorPrimary</item>
+		<item name="android:statusBarColor">?colorPrimary</item>
+	</style>
+
+	<style name="RssReader.AddChannelDialog">
+
+	</style>
 </resources>
